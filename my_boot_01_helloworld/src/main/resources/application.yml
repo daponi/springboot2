@@ -1,0 +1,24 @@
+person:
+  userName: "学霸张三 \n年级第一"
+  boss: true
+  birth: 2000/05/05
+  age: 21
+  pet: {name: 阿狗,weight: 15.00}
+  interests: ['篮球  \n拳击',足球,电子游戏]
+  animal:
+    - 阿猫
+    - 阿狗
+  score:
+    Chinese: 88
+    Math: 90
+    English: 85
+  salarys:
+    - 9999.99
+    - 8888.88
+  allPets:
+    sick:
+      - {name: 阿狗,weight: 15.00}
+      - name: 阿猫
+      - weight: 10
+      - name: 阿鱼
+      - weight: 1
