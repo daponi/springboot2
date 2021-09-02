@@ -1,0 +1,10 @@
+spring:
+  banner:
+    image:
+      location: static/1.png
+  mvc:
+    static-path-pattern: /mystatic/**
+
+  web:
+    resources:
+      static-locations: [classpath:/staticResources/]
