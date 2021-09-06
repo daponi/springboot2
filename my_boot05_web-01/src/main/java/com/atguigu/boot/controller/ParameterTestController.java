@@ -1,5 +1,6 @@
 package com.atguigu.boot.controller;
 
+import com.atguigu.boot.bean.Person;
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +80,10 @@ public class ParameterTestController {
         return objectObjectHashMap;
     }
 
+    @PostMapping("/saveuser")
+    public Person saveuser(Person person){
 
+        return person;
+    }
 
 }

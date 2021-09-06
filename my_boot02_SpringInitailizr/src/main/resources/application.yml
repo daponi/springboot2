@@ -1,5 +1,4 @@
 person:
-  username: "学霸张三 \n年级第一"
   boss: true
   birth: 2000/05/05
   age: 21
