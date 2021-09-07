@@ -1,11 +1,14 @@
 spring:
+#设置启动标志
   banner:
     image:
       location: static/1.png
+
+# 设置静态资源前缀
 #  mvc:
 #    static-path-pattern: /mystatic/**
 
+# 设置静态资源位置
   web:
     resources:
       static-locations: [classpath:/staticResources/]
-

@@ -59,6 +59,7 @@ public class MyAtguiguMessageConverter implements HttpMessageConverter<Person> {
     public void write(Person person, MediaType contentType, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         String data = person.getUserName()+","+ person.getAge()+","+person.getBirth()+","+ person.getPet();
         OutputStream body = outputMessage.getBody();
+//        body.write(data.getBytes("utf-8")); 仍会乱码
         body.write(data.getBytes());
     }
 }

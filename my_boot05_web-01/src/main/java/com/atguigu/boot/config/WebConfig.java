@@ -7,13 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.StringUtils;
+import org.springframework.web.accept.HeaderContentNegotiationStrategy;
+import org.springframework.web.accept.ParameterContentNegotiationStrategy;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings({"all"})
 @Configuration(proxyBeanMethods = false)
@@ -93,6 +97,22 @@ public class WebConfig /*implements WebMvcConfigurer*/ {
             public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
                 converters.add(new GuiguMessageConverter());
                 converters.add(new MyAtguiguMessageConverter());
+            }
+
+
+            @Override
+            public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+                Map<String, MediaType> mediaTypeMap = new HashMap<>();
+                mediaTypeMap.put("json",MediaType.APPLICATION_JSON);
+                mediaTypeMap.put("xml",MediaType.APPLICATION_XML);
+                mediaTypeMap.put("mine",MediaType.parseMediaType("application/x-guigu"));
+                //自定义适配参数协商策略，指定支持解析哪些参数对应的哪些媒体类型，地址访问localhost:8080/xxxx?format=atguigu
+                ParameterContentNegotiationStrategy parameterContentNegotiationStrategy = new ParameterContentNegotiationStrategy(mediaTypeMap);
+                parameterContentNegotiationStrategy.setParameterName("formatType");
+                //自定义适配请求头协商策略，用postman访问时给请求头添加accept字段，值为application/my-Atguigu
+                HeaderContentNegotiationStrategy headerContentNegotiationStrategy = new HeaderContentNegotiationStrategy();
+
+                configurer.strategies(Arrays.asList(parameterContentNegotiationStrategy,headerContentNegotiationStrategy));
             }
         };
     }
