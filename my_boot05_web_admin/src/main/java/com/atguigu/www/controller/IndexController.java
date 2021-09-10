@@ -1,18 +1,30 @@
 package com.atguigu.www.controller;
 
+import com.atguigu.www.bean.Account;
 import com.atguigu.www.bean.User;
+import com.atguigu.www.service.AccountService;
+import com.atguigu.www.service.impl.AccountServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
 public class IndexController {
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    AccountService accountServiceImpl;
     /**
      * 进入登录页面
      *
@@ -65,5 +77,24 @@ public class IndexController {
             return "login";
         }*/
             return "main";
+    }
+
+
+    /**
+     * 测试Druid的监控功能
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/sql")
+    public String testDruid(){
+        String count = jdbcTemplate.queryForObject("select count(1) from account", String.class);
+        return count;
+    }
+
+    @ResponseBody
+    @GetMapping("/account")
+    private Account getAccountById(@RequestParam("id")  String id){
+        Integer  id2=Integer.valueOf(id);
+    return accountServiceImpl.getAccountById(id2);
     }
 }

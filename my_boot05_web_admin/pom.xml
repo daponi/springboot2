@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>com.atguigu</groupId>
     <artifactId>my_boot05_web_admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -12,7 +18,8 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.4.1</spring-boot.version>
+        <!--    自定义mysql版本-->
+<!--        <mysql.version>8.0.25</mysql.version>-->
     </properties>
 
     <dependencies>
@@ -23,8 +30,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!--排除stater自带的tomcat用undertow-->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
+        <!--将默认的Tomcat服务器修改为undertow-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -46,20 +64,41 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+
+        <!--指定mysql版本，1该处指定版本，2在<properties>指定版本-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+<!--            <version>8.0.25</version>-->
+        </dependency>
+
+        <!--更换为阿里的数据源druid,可用druid-starter代替-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid</artifactId>-->
+<!--            <version>1.2.3</version>-->
+<!--        </dependency>-->
+
+        <!--配置druid-starter-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
+        </dependency>
+        <!--引入myBatis-starter-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
@@ -80,6 +119,7 @@
                     <mainClass>com.atguigu.www.MyBoot05WebAdminApplication</mainClass>
                 </configuration>
                 <executions>
+                    <!--编译打包时排除的包-->
                     <execution>
                         <id>repackage</id>
                         <goals>

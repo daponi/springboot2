@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Order(value = Ordered.HIGHEST_PRECEDENCE)//设置异常的优先级，数字越小优先级越高
+//@Order(value = Ordered.HIGHEST_PRECEDENCE)//设置异常的优先级，数字越小优先级越高
 @Component
 public class CustomerHandlerExceptionResolver implements HandlerExceptionResolver {
     @Override
