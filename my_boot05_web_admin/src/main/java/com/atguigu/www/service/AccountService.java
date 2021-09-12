@@ -6,12 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-@Service
-public class AccountService {
-    @Autowired
-    AccountMapper accountMapper;
-
-    public Account getAccountById(Integer id){
-        return accountMapper.getAccountById(id);
-    }
+public interface AccountService {
+    public Account getAccountById(Integer id);
 }

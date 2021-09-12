@@ -1,9 +1,10 @@
 package com.atguigu.www.controller;
 
 import com.atguigu.www.bean.Account;
+import com.atguigu.www.bean.Score;
 import com.atguigu.www.bean.User;
 import com.atguigu.www.service.AccountService;
-import com.atguigu.www.service.impl.AccountServiceImpl;
+import com.atguigu.www.service.ScoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +25,10 @@ public class IndexController {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    AccountService accountServiceImpl;
+    AccountService accountService;
+
+    @Autowired
+    ScoreService scoreService;
     /**
      * 进入登录页面
      *
@@ -91,10 +95,29 @@ public class IndexController {
         return count;
     }
 
+    /**
+     * 测试写myBatis
+     * @param id
+     * @return
+     */
     @ResponseBody
-    @GetMapping("/account")
-    private Account getAccountById(@RequestParam("id")  String id){
-        Integer  id2=Integer.valueOf(id);
-    return accountServiceImpl.getAccountById(id2);
+    @GetMapping("/acc")
+    public Account getAccountById(@RequestParam("id")  Integer id){
+    return accountService.getAccountById(id);
     }
+
+    @ResponseBody
+    @GetMapping("/score")
+    public Score getScoreById(@RequestParam("id") Integer sId){
+        System.out.println(sId);
+        return scoreService.getScoreById(sId);
+    }
+
+    @PostMapping("/addScore")
+    @ResponseBody
+    public Score insertScore(Score score){
+        scoreService.insertScore(score);
+        return score;
+    }
+
 }
