@@ -66,11 +66,11 @@
         </dependency>
 
 
-
-        <dependency>
+            <!--引入jdbc，，mubatis-plus已经包含了这个包-->
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--指定mysql版本，1该处指定版本，2在<properties>指定版本-->
         <dependency>
@@ -92,11 +92,25 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.17</version>
         </dependency>
-        <!--引入myBatis-starter-->
-        <dependency>
+
+        <!--引入myBatis-starter是mybatis和spring的整合包，mubatis-plus已经包含了这个包-->
+<!--        <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.0</version>
+        </dependency>-->
+
+        <!--引入mybtais-plus的starter，看它结构已经引入了jdbc、mybatis、mybatis和spring的整合包-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.3</version>
+        </dependency>
+
+        <!--Redis的依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
     <build>
