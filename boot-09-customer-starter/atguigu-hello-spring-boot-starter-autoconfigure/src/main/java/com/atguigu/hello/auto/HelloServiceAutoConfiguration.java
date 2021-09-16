@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(HelloProperties.class)  //默认HelloProperties放在容器中
+@EnableConfigurationProperties(HelloProperties.class)  //两个功能1开启HelloProperties配置绑定功能2默认HelloProperties组件自动注册到容器中
 public class HelloServiceAutoConfiguration{
 
     @ConditionalOnMissingBean(HelloService.class)
